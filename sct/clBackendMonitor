@@ -1,0 +1,25 @@
+#------------------------------------------------------------------#
+# NAME   : 檢查backend狀況                                                                                                                                   #
+#------------------------------------------------------------------#
+
+
+
+
+cleanJob()
+{
+. /APCLMS/def/SET_APCLMS_ENV.def
+$JAVA_HOME/bin/java/idv/heimlich/CleanJob/domain controller.BackendMonitorController
+checkCode.sct $0 $?
+}
+
+#--------------------------------------------------------------------#
+#                            MAIN ROUTINE                            #
+#--------------------------------------------------------------------#
+
+while true
+do
+  #寫檔
+  cleanJob
+  touch /PCLMS/log/$0
+  sleep 600
+done

@@ -1,0 +1,26 @@
+#------------------------------------------------------------------#
+# PROJECT   : 程式異常通知信                                       #
+# LOG紀錄於：/PCLMS/log/check.yymmdd.log
+# 異常時，發送通知信並寫紀錄
+#------------------------------------------------------------------#
+
+
+  if [ $# -ne 2 ]
+			then
+				echo "Please input arguments!"
+				exit
+fi
+ data_mark=`date '+%y%m%d'`
+ ME_LOG_PATH=/PCLMS/log/checkCode.$data_mark.log
+
+ time_mark=`date '+%m/%d/%y %H:%M:%S'`
+ echo "$time_mark shell name: ${1}  code: ${2}" >>$ME_LOG_PATH
+ if [ $2 -eq 0 ] #若回傳值為0
+  then
+  
+    :
+  else
+  	
+    echo "$time_mark $1 error code:$2 send mail now" >>$ME_LOG_PATH
+    echo "$1 $time_mark happened error code:$2 "  |mail -s "Backend System exception notification" robertwu@tradevan.com.tw,jerry.lin@tradevan.com.tw,andy.tsai@tradevan.com.tw
+  fi
